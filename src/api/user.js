@@ -12,4 +12,9 @@ export const login=(data)=> {
     data
   })
 }
-
+// 拿取用户信息
+export const getuserInfo=(id)=> {
+  return request({
+    url: '/user-service/user/' +id,
+  })
+}

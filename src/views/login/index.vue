@@ -102,6 +102,7 @@ export default {
         clientToken: "",
         loginType: 0,
       },
+      // 校验规则
       loginRules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
@@ -157,12 +158,15 @@ export default {
     },
     // 登陆按钮
     async handleLogin() {
+      this.loading = true
       try {
         console.log(this.loginForm);
         await this.$refs.loginForm.validate();
         console.log(11);
         this.$store.dispatch("user/getToken", this.loginForm);
-      } catch (e) {}
+      } finally{
+        this.loading = false
+      }
     },
     // 点击验证码刷新
     changeCode() {
