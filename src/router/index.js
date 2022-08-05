@@ -1,258 +1,239 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
-Vue.use(Router)
+Vue.use(Router);
 
 /* Layout */
-import Layout from '@/layout'
+import Layout from "@/layout";
 
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
+// 静态路由
 export const constantRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
+    path: "/login",
+    component: () => import("@/views/login/index"),
+    hidden: true,
   },
 
   {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
+    path: "/404",
+    component: () => import("@/views/404"),
+    hidden: true,
   },
   // 重定向
   {
-    path: '/',
+    path: "/",
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '帝可得', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/form',
-    component: Layout,
+    redirect: "/dashboard",
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '帝可得', icon: 'form' }
-      }
-    ]
-  },
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '工单管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: '运营工单', icon: 'table' }
+        path: "dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/dashboard/index"),
+        meta: { title: "帝可得", icon: "dashboard" },
       },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '运维工单', icon: 'tree' }
-      }
-    ]
-  },
-
-
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: '点位管理',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: '区域管理' },
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '点位管理' }
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '合作商管理' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: '设备管理',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: '区域管理' },
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '点位管理' }
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '合作商管理' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: '人员管理',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: '区域管理' },
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '点位管理' }
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '合作商管理' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: '商品管理',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: '区域管理' },
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: '点位管理' }
-  //     },
-  //   ]
-  // },
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: '策略管理', icon: 'link' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: '订单管理', icon: 'link' }
-  //     }
-  //   ]
-  // },
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: '对账统计', icon: 'link' }
-      }
-    ]
+    ],
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
+  { path: "*", redirect: "/404", hidden: true },
+];
+// 动态路由
+export const asyncRoutes = [
+  {
+    path: "/task",
+    component: Layout,
+    redirect: "/task/business",
+    name: "task",
+    meta: { title: "工单管理", icon: "task" },
+    children: [
+      {
+        path: "/task/business",
+        name: "business",
+        component: () => import("@/views/business/index"),
+        meta: { title: "运营工单" },
+      },
+      {
+        path: "/task/operation",
+        name: "operation",
+        component: () => import("@/views/operation/index"),
+        meta: { title: "运维工单" },
+      },
+    ],
+  },
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+  {
+    path: "/node",
+    component: Layout,
+    redirect: "/node/region",
+    meta: { title: "点位管理", icon: "node" },
+    children: [
+      {
+        path: "region",
+        name: "region",
+        component: () => import("@/views/region/index"),
+        meta: { title: "区域管理" },
+      },
+      {
+        path: "node",
+        name: "node",
+        component: () => import("@/views/node/index"),
+        meta: { title: "点位管理" },
+      },
+      {
+        path: "partner",
+        name: "partner",
+        component: () => import("@/views/partner/index"),
+        meta: { title: "合作商管理" },
+      },
+    ],
+  },
 
-const router = createRouter()
+  {
+    path: "/vm",
+    component: Layout,
+    redirect: "/vm/index",
+    name: "vm",
+    meta: {
+      title: "设备管理",
+      icon: "vm",
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/vm/index"),
+        name: "index",
+        meta: { title: "设备管理" },
+      },
+      {
+        path: "status",
+        component: () => import("@/views/status/index"),
+        name: "status",
+        meta: { title: "设备状态" },
+      },
+      {
+        path: "type",
+        component: () => import("@/views/type/index"),
+        name: "type",
+        meta: { title: "设备类型管理" },
+      },
+    ],
+  },
+  {
+    path: "/user",
+    component: Layout,
+    redirect: "/user/index",
+    name: "user",
+    meta: {
+      title: "人员管理",
+      icon: "userM",
+    },
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/user/index"),
+        name: "index",
+        meta: { title: "人员列表" },
+      },
+      {
+        path: "user-task-stats",
+        component: () => import("@/views/task-stats/index"),
+        name: "user-task-stats",
+        meta: { title: "人效统计" },
+      },
+      {
+        path: "user-work",
+        component: () => import("@/views/user-work/index"),
+        name: "user-work",
+        meta: { title: "工作量列表" },
+      },
+    ],
+  },
+  {
+    path: "/sku",
+    component: Layout,
+    redirect: "/sku/sku-class",
+    name: "sku",
+    meta: {
+      title: "商品管理",
+      icon: "sku",
+    },
+    children: [
+      {
+        path: "sku-class",
+        component: () => import("@/views/sku-class/index"),
+        name: "sku-class",
+        meta: { title: "商品类型" },
+      },
+      {
+        path: "sku",
+        component: () => import("@/views/sku/index"),
+        name: "sku",
+        meta: { title: "商品管理" },
+      },
+    ],
+  },
+  {
+    path: "/policy",
+    component: Layout,
+    name: "policy",
+    redirect: "/policy/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/policy/index"),
+        meta: {
+          title: "策略管理",
+          icon: "policy",
+        },
+      },
+    ],
+  },
+  {
+    path: "/order",
+    component: Layout,
+    name: "order",
+    redirect: "/order/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/order/index"),
+        meta: {
+          title: "订单管理",
+          icon: "order",
+        },
+      },
+    ],
+  },
+  {
+    path: "/report",
+    component: Layout,
+    name: "report",
+    redirect: "/report/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/report/index"),
+        meta: {
+          title: "对账记录",
+          icon: "report",
+        },
+      },
+    ],
+  },
+];
+
+const createRouter = () =>
+  new Router({
+    scrollBehavior: () => ({ y: 0 }),
+    routes: [...constantRoutes, ...asyncRoutes],
+  });
+
+const router = createRouter();
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
 }
 
-export default router
+export default router;
